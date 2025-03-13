@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Episode List</title>
+    <link rel="stylesheet" type="text/css" href="/css/list.css"> <!-- CSS 경로 -->
+</head>
+<body>
+
+<h1>Episode List</h1>
+
+<ul id="episodeList">
+    <!-- Thymeleaf를 사용하여 서버에서 받은 episodeList를 렌더링 -->
+    <li th:each="episode : ${episodeList}">
+        <!-- 아코디언 버튼 -->
+        <button class="accordion" th:text="${episode.id} + ' - ' + ${episode.title}"></button>
+
+        <!-- 패널 -->
+        <div class="panel">
+            <p>
+                <strong>Title:</strong> <span th:text="${episode.title}"></span> <br>
+                <strong>Rating:</strong> <span th:text="${episode.rating}"></span> <br>
+                <strong>Date:</strong> <span th:text="${episode.date}"></span> <br>
+<!--                <img src="/episode/${seriesId}/thumb/${episodeId}" alt="Thumbnail" />-->
+                <img th:src="@{'/episode/' + ${seriesId} + '/thumb/' + ${episode.id}}" alt="Thumbnail" />
+            </p>
+        </div>
+    </li>
+</ul>
+
+<!-- 아코디언 기능을 위한 JS -->
+<script type="text/javascript" src="/js/list.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Series List</title>
+  <link rel="stylesheet" type="text/css" href="/css/list.css">  <!-- CSS 경로 -->
+</head>
+<body>
+
+<h1>Series List</h1>
+
+<ul id="seriesList">
+  <!-- 서버에서 받아온 series 리스트가 여기에 동적으로 추가됩니다. -->
+</ul>
+
+<script>
+  // 페이지가 로드될 때 fetch()를 사용하여 /series 경로에서 JSON 데이터를 받아옵니다.
+  fetch('/series-list')
+          .then(response => response.json())  // 응답을 JSON으로 변환
+          .then(seriesList => {
+            // 받아온 seriesList를 ul 태그에 동적으로 추가
+            const seriesListElement = document.getElementById('seriesList');
+
+            seriesList.forEach(series => {
+              // 각 series에 대해 li 요소를 만들어서 추가
+              const li = document.createElement('li');
+
+              // 아코디언 버튼 생성
+              const button = document.createElement('button');
+              button.classList.add('accordion');  // 아코디언 스타일 클래스 추가
+              button.textContent = `${series.id} - ${series.title}`;  // JSON 데이터에서 id와 title을 표시
+
+              // 패널을 추가
+              const panel = document.createElement('div');
+              panel.classList.add('panel');  // 패널 스타일 클래스 추가
+              const panelContent = document.createElement('p');
+              panelContent.innerHTML = `
+                <strong>Title:</strong> ${series.title} <br>
+                <strong>About:</strong> ${series.about} <br>
+                <strong>Genre:</strong> ${series.genre} <br>
+                <strong>Age:</strong> ${series.age} <br>
+                <img src="${series.thumb}" alt="Thumbnail" style="width: 100px; height: auto;"> <br>
+                <button onclick="location.href='episode/' + ${series.id}">에피소드 조회</button>
+              `;
+              panel.appendChild(panelContent);
+
+              // 아코디언 버튼과 패널을 li에 추가
+              li.appendChild(button);
+              li.appendChild(panel);
+              seriesListElement.appendChild(li);
+
+              // 아코디언 버튼에 클릭 이벤트 추가
+              button.addEventListener('click', function() {
+                this.classList.toggle('active');
+                if (panel.style.display === 'block') {
+                  panel.style.display = 'none';
+                } else {
+                  panel.style.display = 'block';
+                }
+              });
+            });
+          })
+          .catch(error => {
+            console.error('Error:', error);  // 에러 처리
+          });
+</script>
+
+<script type="text/javascript" src="/js/list.js"></script> <!-- JS 경로 -->
+
+</body>
+</html>
