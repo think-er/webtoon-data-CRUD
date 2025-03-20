@@ -1,6 +1,7 @@
 package com.example.webtoon_print.controller;
 
 import com.example.webtoon_print.dto.SeriesDTO;
+import com.example.webtoon_print.model.Series;
 import com.example.webtoon_print.service.SeriesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -22,7 +23,7 @@ public class SeriesController {
         this.seriesService = seriesService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/series/{id}")
     @ResponseBody
     public SeriesDTO getSeriesById(@PathVariable("id") Long id) {
         return seriesService.getSeriesById(id);
@@ -34,7 +35,7 @@ public class SeriesController {
 //        return seriesService.getAllSeries();
 //    }
 
-    @GetMapping("/seriesImg/{id}")
+    @GetMapping("/series/{id}/thumb")
     public ResponseEntity<byte[]> getSeriesThumbImg(@PathVariable("id") Long id) {
         SeriesDTO seriesDTO = seriesService.getSeriesThumbImgBySeriesId(id);
 
@@ -57,5 +58,10 @@ public class SeriesController {
         return "series";  // series.html 파일을 렌더링
     }
 
+    @GetMapping("/test1")
+    @ResponseBody
+    public List<Series> getTest1() {
+        return seriesService.getSeriesTest();
+    }
 
 }

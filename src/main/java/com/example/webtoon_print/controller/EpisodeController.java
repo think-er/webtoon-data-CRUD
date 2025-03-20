@@ -22,7 +22,7 @@ public class EpisodeController {
         this.episodeService = episodeService;
     }
 
-    @GetMapping("/episode/{seriesId}")
+    @GetMapping("/series/{seriesId}/episode")
     public String getEpisodesBySeriesId(@PathVariable("seriesId") Long seriesId,
                                                   Model model) {
         List<EpisodeDTO> episodeDTOS = episodeService.getAllEpisodesBySeriesId(seriesId);
@@ -30,7 +30,16 @@ public class EpisodeController {
         return "episode";
     }
 
-    @GetMapping("/episode/{seriesId}/thumb/{episodeId}")
+    // 정적데이터로 저장한 파일 URL GET 요청
+    @GetMapping("/series/{seriesId}/episodeTest")
+    public String getEpisodesBySeriesId2(@PathVariable("seriesId") Long seriesId,
+                                        Model model) {
+        List<EpisodeDTO> episodeDTOS = episodeService.getAllEpisodesBySeriesId(seriesId);
+        model.addAttribute("episodeList", episodeDTOS);
+        return "episodeTest";
+    }
+
+    @GetMapping("/series/{seriesId}/episode/{episodeId}/thumb")
     public ResponseEntity<byte[]> getEpisodeThumbImg(@PathVariable("seriesId") Long seriesId,
                                                      @PathVariable("episodeId") Long episodeId) {
         // EpisodeDTO에서 썸네일 데이터 가져오기

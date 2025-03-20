@@ -1,5 +1,6 @@
 package com.example.webtoon_print.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +36,8 @@ public class Series {
     private String thumbUrl;
     // One Series can have multiple Episodes
     // 한 개의 시리즈(Series) 엔티티가 여러 개의 에피소드(Episode) 엔티티를 가질 수 있다
-    @OneToMany(mappedBy = "series", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "series", cascade = CascadeType.ALL,
+    fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Episode> episodes;
 }

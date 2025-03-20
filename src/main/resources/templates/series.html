@@ -41,7 +41,7 @@
                 <strong>Genre:</strong> ${series.genre} <br>
                 <strong>Age:</strong> ${series.age} <br>
                 <img src="${series.thumb}" alt="Thumbnail" style="width: 100px; height: auto;"> <br>
-                <button onclick="location.href='episode/' + ${series.id}">에피소드 조회</button>
+                <button onclick="location.href='series/' + ${series.id} + '/episode'" >에피소드 조회</button>
               `;
               panel.appendChild(panelContent);
 

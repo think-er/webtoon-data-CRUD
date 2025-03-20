@@ -22,8 +22,11 @@
                 <strong>Title:</strong> <span th:text="${episode.title}"></span> <br>
                 <strong>Rating:</strong> <span th:text="${episode.rating}"></span> <br>
                 <strong>Date:</strong> <span th:text="${episode.date}"></span> <br>
-<!--                <img src="/episode/${seriesId}/thumb/${episodeId}" alt="Thumbnail" />-->
-                <img th:src="@{'/episode/' + ${seriesId} + '/thumb/' + ${episode.id}}" alt="Thumbnail" />
+
+                <!-- 정적컨텐츠 파일 가져오기 -->
+<!--                <img th:src="@{'/images/episode_thumb/' + ${episode.id} + ${episode.thumbImgType}}" alt="Thumbnail" />-->
+                <!-- Blob 데이터 가져오기 -->
+                <img th:src="@{'/series/' + ${seriesId} + '/episode/' + ${episode.id} + '/thumb'}" alt="Thumbnail" />
             </p>
         </div>
     </li>

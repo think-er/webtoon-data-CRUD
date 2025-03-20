@@ -34,13 +34,25 @@ public class EpisodeService {
                     episode.getRating(),
                     episode.getDate(),
                     episode.getThumbImg(),
-                    episode.getThumbImgType(),
+                    EpisodeThumbImgTypeChangeFormat(episode.getThumbImgType()),
                     episode.getThumbUrl()
             );
             episodeDTOs.add(episodeDTO);
         }
 
         return episodeDTOs;
+    }
+
+    // 에피소드 썸네일의 이미지 타입을 img 태그에서 활용할 수 있도록 변환
+    // img/jpg -> .jpg
+    public String EpisodeThumbImgTypeChangeFormat(String thumbImgType) {
+        if(thumbImgType.equals("image/jpg"))
+            return ".jpg";
+        else if(thumbImgType.equals("image/png"))
+            return ".png";
+        else if(thumbImgType.equals("image/gif"))
+            return ".gif";
+        else return thumbImgType;
     }
 
     public EpisodeDTO getThumbImgById(Long id, Long seriesId) {
@@ -50,6 +62,10 @@ public class EpisodeService {
         episodeDTO.setThumbImg(episode.getThumbImg());
         episodeDTO.setThumbImgType(episode.getThumbImgType());
         return episodeDTO;
+    }
+
+    public List<Episode> getAllEpisodes() {
+        return episodeRepository.findAll();
     }
 
 }

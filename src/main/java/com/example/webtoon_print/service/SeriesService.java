@@ -79,4 +79,8 @@ public class SeriesService {
 //                .collect(Collectors.toList());  // List<Long>으로 변환
         return seriesRepository.findAllBy();
     }
+
+    public List<Series> getSeriesTest() {
+        return seriesRepository.findAll();
+    }
 }
